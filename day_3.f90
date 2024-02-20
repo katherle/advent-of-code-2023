@@ -23,6 +23,7 @@ PROGRAM day_3
         status_check: IF (status == 0) THEN
             ! read in line of interest and the 2 surrounding
             input_1 = ".........."
+            !read(1, '(A10)', IOSTAT = status) input_1
             read(1, '(A10)', IOSTAT = status) input_2
             read(1, '(A10)', IOSTAT = status) input_3
             !print *,input_1
@@ -30,21 +31,22 @@ PROGRAM day_3
             !print *,input_3
 
             DO line = 1, 10
+                !print *,input_1
+                !print *,input_2
+                !print *,input_3
                 CALL num_if_symbol(input_1, input_2, input_3, num)
+                print *,"Num on this line: ", num
             
                 sum = sum + num
+                num = 0
 
                 input_1 = input_2
                 input_2 = input_3
-                IF (line == 10) THEN
+                IF (line == 9) THEN
                     input_3 = ".........."
                 ELSE
                     read(1, '(A10)', IOSTAT = status) input_3
                 END IF
-
-                print *,input_1
-                print *,input_2
-                print *,input_3
             END DO
 
             !CALL num_if_symbol(input_1, input_2, input_3, num)
@@ -70,7 +72,15 @@ SUBROUTINE num_if_symbol(input_1, input_2, input_3, num)
     integer :: index
 
     ind_a = scan(input_2, "0123456789")
-    ind_b = scan(input_2(ind_a:ind_a+3), "0123456789", .true.)
+    IF (ind_a == 0) THEN
+        print *,"no numbers on this line"
+        RETURN
+    ELSE
+        print *,"numbers exist"
+    END IF
+
+    ind_b = scan(input_2(ind_a:ind_a+3), "0123456789", .true.) + ind_a
+    !print *,ind_a, ind_b
     temp_cha = input_2(ind_a:ind_b)
 
     DO
@@ -112,11 +122,12 @@ SUBROUTINE num_if_symbol(input_1, input_2, input_3, num)
             !print *,temp_cha
             num = num
         END IF
+        print *,num
     
         ind_a = scan(input_2(ind_b+1:), "0123456789") + ind_b
         IF (ind_a == ind_b) THEN
             !print *,"Exiting"
-            EXIT
+            RETURN
         ELSE
             ind_b = scan(input_2(ind_a:ind_a+3), "0123456789", .true.) + ind_a
             symbol_1 = [0,0,0,0,0]
