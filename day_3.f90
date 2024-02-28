@@ -112,6 +112,7 @@ SUBROUTINE num_if_symbol(input_1, input_2, input_3, num)
             symbol_2(2) = verify(input_2(ind_b+1:ind_b+1), ".")
         ELSE IF (ind_b == 0) THEN
             print *,"number at end of line"
+            print *,ind_a,ind_b
             DO index = 1, len(trim(temp_cha)) + 2
                 symbol_1(index) = verify(input_1(ind_a+index-2:ind_a+index-2), ".0123456789")
                 symbol_3(index) = verify(input_3(ind_a+index-2:ind_a+index-2), ".0123456789")
