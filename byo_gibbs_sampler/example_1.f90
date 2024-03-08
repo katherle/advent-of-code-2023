@@ -1,9 +1,6 @@
 program sampler
-    ! in August 2021 I took the AST5240 cosmological component separation course at UiO
-    ! one assignment was a python notebook called "build your own gibbs sampler"
-    ! this is my attempt at a translation of that notebook into fortran
-    ! doing this purely to learn fortran, the python notebook itself works fine
-    ! (except for the last task but we're not gonna talk about that right now)
+    ! my attempt at a translation of the build your own gibbs sampler notebook from AST5240 into fortran
+    ! this is just exercise 1 (a simple 1D gaussian)
 
     implicit none
 
@@ -64,7 +61,7 @@ subroutine lnL_Gaussian_1D(dat, sigma, mu_grid, lnL)
     ! find the minimum and maximum values of the dataset
     dat_min = minval(dat)
     dat_max = maxval(dat)
-    
+
     ! fill output arrays
     diff = dat_max - dat_min
     mu_iter: do j = 1, 1000
