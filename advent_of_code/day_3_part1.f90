@@ -2,7 +2,6 @@ PROGRAM day_3
     ! finds all numbers in input file that are adjacent to symbols
     ! adds them all up and outputs the result
     ! a period does not count as a symbol
-    ! haven't finished solving this one yet
 
     IMPLICIT NONE
 
@@ -125,7 +124,7 @@ SUBROUTINE num_if_symbol(input_1, input_2, input_3, num)
             RETURN
         ELSE
             ind_b = scan(input_2(ind_a:ind_a+2), "0123456789", .true.) + ind_a - 1 ! find the end of the next number
-            IF (ind_b == 140) THEN
+            IF (ind_b == len(input_2)) THEN
                 ! this number is the last one in the line
                 ind_b = 0
                 temp_cha = input_2(ind_a:)
