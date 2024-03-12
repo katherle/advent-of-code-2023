@@ -1,6 +1,6 @@
 program sampler
     ! my attempt at a translation of the build your own gibbs sampler notebook from AST5240 into fortran
-    ! this is just exercise 1 (a simple 1D gaussian)
+    ! this is just exercise 1 (a simple 1D Gaussian)
 
     implicit none
 
@@ -66,7 +66,7 @@ subroutine lnL_Gaussian_1D(dat, sigma, mu_grid, lnL)
     diff = dat_max - dat_min
     mu_iter: do j = 1, 1000
         p = 0
-        mu_grid(j) = dat_min + diff * (j-1)/999.
+        mu_grid(j) = dat_min + diff * (j-1)/999. ! recreates numpy linspace
         data_iter: do i = 1, 1000
             p = p + log(1./sqrt(2.*pi*sigma**2)) - (dat(i) - mu_grid(j))**2 / (2.*sigma**2)
         end do data_iter
